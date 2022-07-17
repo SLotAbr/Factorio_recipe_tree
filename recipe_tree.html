@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Automation_science_pack", "image": "img/32px-Automation_science_pack.png", "label": "Automation_science_pack", "shape": "image", "x": -700.0, "y": 0}, {"id": "Logistic_science_pack", "image": "img/32px-Logistic_science_pack.png", "label": "Logistic_science_pack", "shape": "image", "x": -500.0, "y": 0}, {"id": "Military_science_pack", "image": "img/32px-Military_science_pack.png", "label": "Military_science_pack", "shape": "image", "x": -300.0, "y": 0}, {"id": "Chemical_science_pack", "image": "img/32px-Chemical_science_pack.png", "label": "Chemical_science_pack", "shape": "image", "x": -100.0, "y": 0}, {"id": "Production_science_pack", "image": "img/32px-Production_science_pack.png", "label": "Production_science_pack", "shape": "image", "x": 100.0, "y": 0}, {"id": "Utility_science_pack", "image": "img/32px-Utility_science_pack.png", "label": "Utility_science_pack", "shape": "image", "x": 300.0, "y": 0}, {"id": "Satellite", "image": "img/32px-Satellite.png", "label": "Satellite", "shape": "image", "x": 500.0, "y": 0}, {"id": "Copper_plate", "image": "img/32px-Copper_plate.png", "label": "Copper_plate", "shape": "image", "x": -400.0, "y": 1000}, {"id": "Iron_gear_wheel", "image": "img/32px-Iron_gear_wheel.png", "label": "Iron_gear_wheel", "shape": "image", "x": -700.0, "y": 800}, {"id": "Inserter", "image": "img/32px-Inserter.png", "label": "Inserter", "shape": "image", "x": -1500.0, "y": 200}, {"id": "Transport_belt", "image": "img/32px-Transport_belt.png", "label": "Transport_belt", "shape": "image", "x": -1300.0, "y": 200}, {"id": "Grenade", "image": "img/32px-Grenade.png", "label": "Grenade", "shape": "image", "x": -1100.0, "y": 200}, {"id": "Piercing_rounds_magazine", "image": "img/32px-Piercing_rounds_magazine.png", "label": "Piercing_rounds_magazine", "shape": "image", "x": -900.0, "y": 200}, {"id": "Wall", "image": "img/32px-Wall.png", "label": "Wall", "shape": "image", "x": -700.0, "y": 200}, {"id": "Advanced_circuit", "image": "img/32px-Advanced_circuit.png", "label": "Advanced_circuit", "shape": "image", "x": -800.0, "y": 400}, {"id": "Engine_unit", "image": "img/32px-Engine_unit.png", "label": "Engine_unit", "shape": "image", "x": -600.0, "y": 600}, {"id": "Sulfur", "image": "img/32px-Sulfur.png", "label": "Sulfur", "shape": "image", "x": -500.0, "y": 800}, {"id": "Electric_furnace", "image": "img/32px-Electric_furnace.png", "label": "Electric_furnace", "shape": "image", "x": -500.0, "y": 200}, {"id": "Productivity_module", "image": "img/32px-Productivity_module.png", "label": "Productivity_module", "shape": "image", "x": -300.0, "y": 200}, {"id": "Rail", "image": "img/32px-Straight_rail.png", "label": "Rail", "shape": "image", "x": -100.0, "y": 200}, {"id": "Flying_robot_frame", "image": "img/32px-Flying_robot_frame.png", "label": "Flying_robot_frame", "shape": "image", "x": 100.0, "y": 200}, {"id": "Low_density_structure", "image": "img/32px-Low_density_structure.png", "label": "Low_density_structure", "shape": "image", "x": 300.0, "y": 200}, {"id": "Processing_unit", "image": "img/32px-Processing_unit.png", "label": "Processing_unit", "shape": "image", "x": 500.0, "y": 200}, {"id": "Accumulator", "image": "img/32px-Accumulator.png", "label": "Accumulator", "shape": "image", "x": 700.0, "y": 200}, {"id": "Radar", "image": "img/32px-Radar.png", "label": "Radar", "shape": "image", "x": 900.0, "y": 200}, {"id": "Rocket_fuel", "image": "img/32px-Rocket_fuel.png", "label": "Rocket_fuel", "shape": "image", "x": 1100.0, "y": 200}, {"id": "Solar_panel", "image": "img/32px-Solar_panel.png", "label": "Solar_panel", "shape": "image", "x": 1300.0, "y": 200}, {"id": "Copper_ore", "image": "img/32px-Copper_ore.png", "label": "Copper_ore", "shape": "image", "x": -200.0, "y": 1200}, {"id": "Iron_plate", "image": "img/32px-Iron_plate.png", "label": "Iron_plate", "shape": "image", "x": -200.0, "y": 1000}, {"id": "Electronic_circuit", "image": "img/32px-Electronic_circuit.png", "label": "Electronic_circuit", "shape": "image", "x": -400.0, "y": 600}, {"id": "Coal", "image": "img/32px-Coal.png", "label": "Coal", "shape": "image", "x": -300.0, "y": 800}, {"id": "Firearm_magazine", "image": "img/32px-Firearm_magazine.png", "label": "Firearm_magazine", "shape": "image", "x": -600.0, "y": 400}, {"id": "Steel_plate", "image": "img/32px-Steel_plate.png", "label": "Steel_plate", "shape": "image", "x": -100.0, "y": 800}, {"id": "Stone_brick", "image": "img/32px-Stone_brick.png", "label": "Stone_brick", "shape": "image", "x": -400.0, "y": 400}, {"id": "Copper_cable", "image": "img/32px-Copper_cable.png", "label": "Copper_cable", "shape": "image", "x": 100.0, "y": 800}, {"id": "Plastic_bar", "image": "img/32px-Plastic_bar.png", "label": "Plastic_bar", "shape": "image", "x": -200.0, "y": 600}, {"id": "Pipe", "image": "img/32px-Pipe.png", "label": "Pipe", "shape": "image", "x": 300.0, "y": 800}, {"id": "Petroleum_gas", "image": "img/32px-Petroleum_gas.png", "label": "Petroleum_gas", "shape": "image", "x": 0.0, "y": 1000}, {"id": "Water", "image": "img/32px-Water.png", "label": "Water", "shape": "image", "x": 200.0, "y": 1000}, {"id": "Iron_stick", "image": "img/32px-Iron_stick.png", "label": "Iron_stick", "shape": "image", "x": -200.0, "y": 400}, {"id": "Stone", "image": "img/32px-Stone.png", "label": "Stone", "shape": "image", "x": 0.0, "y": 600}, {"id": "Battery", "image": "img/32px-Battery.png", "label": "Battery", "shape": "image", "x": 0.0, "y": 400}, {"id": "Electric_engine_unit", "image": "img/32px-Electric_engine_unit.png", "label": "Electric_engine_unit", "shape": "image", "x": 200.0, "y": 400}, {"id": "Sulfuric_acid", "image": "img/32px-Sulfuric_acid.png", "label": "Sulfuric_acid", "shape": "image", "x": 200.0, "y": 600}, {"id": "Light_oil", "image": "img/32px-Light_oil.png", "label": "Light_oil", "shape": "image", "x": 400.0, "y": 400}, {"id": "Solid_fuel", "image": "img/32px-Solid_fuel.png", "label": "Solid_fuel", "shape": "image", "x": 600.0, "y": 400}, {"id": "Iron_ore", "image": "img/32px-Iron_ore.png", "label": "Iron_ore", "shape": "image", "x": 0.0, "y": 1200}, {"id": "Lubricant", "image": "img/32px-Lubricant.png", "label": "Lubricant", "shape": "image", "x": 400.0, "y": 600}, {"id": "Heavy_oil", "image": "img/32px-Heavy_oil.png", "label": "Heavy_oil", "shape": "image", "x": 500.0, "y": 800}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "Copper_plate", "to": "Automation_science_pack"}, {"arrows": "to", "from": "Iron_gear_wheel", "to": "Automation_science_pack"}, {"arrows": "to", "from": "Inserter", "to": "Logistic_science_pack"}, {"arrows": "to", "from": "Transport_belt", "to": "Logistic_science_pack"}, {"arrows": "to", "from": "Grenade", "to": "Military_science_pack"}, {"arrows": "to", "from": "Piercing_rounds_magazine", "to": "Military_science_pack"}, {"arrows": "to", "from": "Wall", "to": "Military_science_pack"}, {"arrows": "to", "from": "Advanced_circuit", "to": "Chemical_science_pack"}, {"arrows": "to", "from": "Engine_unit", "to": "Chemical_science_pack"}, {"arrows": "to", "from": "Sulfur", "to": "Chemical_science_pack"}, {"arrows": "to", "from": "Electric_furnace", "to": "Production_science_pack"}, {"arrows": "to", "from": "Productivity_module", "to": "Production_science_pack"}, {"arrows": "to", "from": "Rail", "to": "Production_science_pack"}, {"arrows": "to", "from": "Flying_robot_frame", "to": "Utility_science_pack"}, {"arrows": "to", "from": "Low_density_structure", "to": "Utility_science_pack"}, {"arrows": "to", "from": "Processing_unit", "to": "Utility_science_pack"}, {"arrows": "to", "from": "Accumulator", "to": "Satellite"}, {"arrows": "to", "from": "Low_density_structure", "to": "Satellite"}, {"arrows": "to", "from": "Processing_unit", "to": "Satellite"}, {"arrows": "to", "from": "Radar", "to": "Satellite"}, {"arrows": "to", "from": "Rocket_fuel", "to": "Satellite"}, {"arrows": "to", "from": "Solar_panel", "to": "Satellite"}, {"arrows": "to", "from": "Copper_ore", "to": "Copper_plate"}, {"arrows": "to", "from": "Iron_plate", "to": "Iron_gear_wheel"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Inserter"}, {"arrows": "to", "from": "Iron_gear_wheel", "to": "Inserter"}, {"arrows": "to", "from": "Iron_plate", "to": "Inserter"}, {"arrows": "to", "from": "Iron_gear_wheel", "to": "Transport_belt"}, {"arrows": "to", "from": "Iron_plate", "to": "Transport_belt"}, {"arrows": "to", "from": "Coal", "to": "Grenade"}, {"arrows": "to", "from": "Iron_plate", "to": "Grenade"}, {"arrows": "to", "from": "Copper_plate", "to": "Piercing_rounds_magazine"}, {"arrows": "to", "from": "Firearm_magazine", "to": "Piercing_rounds_magazine"}, {"arrows": "to", "from": "Steel_plate", "to": "Piercing_rounds_magazine"}, {"arrows": "to", "from": "Stone_brick", "to": "Wall"}, {"arrows": "to", "from": "Copper_cable", "to": "Advanced_circuit"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Advanced_circuit"}, {"arrows": "to", "from": "Plastic_bar", "to": "Advanced_circuit"}, {"arrows": "to", "from": "Iron_gear_wheel", "to": "Engine_unit"}, {"arrows": "to", "from": "Pipe", "to": "Engine_unit"}, {"arrows": "to", "from": "Steel_plate", "to": "Engine_unit"}, {"arrows": "to", "from": "Petroleum_gas", "to": "Sulfur"}, {"arrows": "to", "from": "Water", "to": "Sulfur"}, {"arrows": "to", "from": "Advanced_circuit", "to": "Electric_furnace"}, {"arrows": "to", "from": "Steel_plate", "to": "Electric_furnace"}, {"arrows": "to", "from": "Stone_brick", "to": "Electric_furnace"}, {"arrows": "to", "from": "Advanced_circuit", "to": "Productivity_module"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Productivity_module"}, {"arrows": "to", "from": "Iron_stick", "to": "Rail"}, {"arrows": "to", "from": "Steel_plate", "to": "Rail"}, {"arrows": "to", "from": "Stone", "to": "Rail"}, {"arrows": "to", "from": "Battery", "to": "Flying_robot_frame"}, {"arrows": "to", "from": "Electric_engine_unit", "to": "Flying_robot_frame"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Flying_robot_frame"}, {"arrows": "to", "from": "Steel_plate", "to": "Flying_robot_frame"}, {"arrows": "to", "from": "Copper_plate", "to": "Low_density_structure"}, {"arrows": "to", "from": "Plastic_bar", "to": "Low_density_structure"}, {"arrows": "to", "from": "Steel_plate", "to": "Low_density_structure"}, {"arrows": "to", "from": "Advanced_circuit", "to": "Processing_unit"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Processing_unit"}, {"arrows": "to", "from": "Sulfuric_acid", "to": "Processing_unit"}, {"arrows": "to", "from": "Battery", "to": "Accumulator"}, {"arrows": "to", "from": "Iron_plate", "to": "Accumulator"}, {"arrows": "to", "from": "Copper_plate", "to": "Low_density_structure"}, {"arrows": "to", "from": "Plastic_bar", "to": "Low_density_structure"}, {"arrows": "to", "from": "Steel_plate", "to": "Low_density_structure"}, {"arrows": "to", "from": "Advanced_circuit", "to": "Processing_unit"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Processing_unit"}, {"arrows": "to", "from": "Sulfuric_acid", "to": "Processing_unit"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Radar"}, {"arrows": "to", "from": "Iron_gear_wheel", "to": "Radar"}, {"arrows": "to", "from": "Iron_plate", "to": "Radar"}, {"arrows": "to", "from": "Light_oil", "to": "Rocket_fuel"}, {"arrows": "to", "from": "Solid_fuel", "to": "Rocket_fuel"}, {"arrows": "to", "from": "Copper_plate", "to": "Solar_panel"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Solar_panel"}, {"arrows": "to", "from": "Steel_plate", "to": "Solar_panel"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Iron_plate", "to": "Firearm_magazine"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Stone", "to": "Stone_brick"}, {"arrows": "to", "from": "Copper_plate", "to": "Copper_cable"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Coal", "to": "Plastic_bar"}, {"arrows": "to", "from": "Petroleum_gas", "to": "Plastic_bar"}, {"arrows": "to", "from": "Iron_plate", "to": "Pipe"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Stone", "to": "Stone_brick"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Iron_stick"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Copper_plate", "to": "Battery"}, {"arrows": "to", "from": "Iron_plate", "to": "Battery"}, {"arrows": "to", "from": "Sulfuric_acid", "to": "Battery"}, {"arrows": "to", "from": "Electronic_circuit", "to": "Electric_engine_unit"}, {"arrows": "to", "from": "Engine_unit", "to": "Electric_engine_unit"}, {"arrows": "to", "from": "Lubricant", "to": "Electric_engine_unit"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Coal", "to": "Plastic_bar"}, {"arrows": "to", "from": "Petroleum_gas", "to": "Plastic_bar"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Sulfur", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Water", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Copper_plate", "to": "Battery"}, {"arrows": "to", "from": "Iron_plate", "to": "Battery"}, {"arrows": "to", "from": "Sulfuric_acid", "to": "Battery"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Coal", "to": "Plastic_bar"}, {"arrows": "to", "from": "Petroleum_gas", "to": "Plastic_bar"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Sulfur", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Water", "to": "Sulfuric_acid"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_ore", "to": "Iron_plate"}, {"arrows": "to", "from": "Copper_cable", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Electronic_circuit"}, {"arrows": "to", "from": "Iron_plate", "to": "Steel_plate"}, {"arrows": "to", "from": "Heavy_oil", "to": "Lubricant"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": false,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
