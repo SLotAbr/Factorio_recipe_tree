@@ -128,6 +128,6 @@ if __name__ == "__main__":
 		for x in range(columns):
 			set_position(level[y][x], 
 						 x*X_DISTANCE-columns*X_DISTANCE/2, 
-						 y*y_DISTANCE)
+						 y*Y_DISTANCE)
 
 	net.show('recipe_tree.html')
