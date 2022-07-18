@@ -15,6 +15,7 @@ Good progress on your design, engineer!
 ## Improved data representation
 | <img src="img/improved_representation_1.png"> | <img src="img/improved_representation_2.png"> |
 |:--:|:--:|
+| <img src="img/improved_representation_3.png"> | <img src="img/improved_representation_4.png"> |
 
 # Requirements
 ```pip3 install bs4 pyvis```
