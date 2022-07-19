@@ -16,6 +16,7 @@ Good progress on your design, engineer!
 | <img src="img/improved_representation_1.png"> | <img src="img/improved_representation_2.png"> |
 |:--:|:--:|
 | <img src="img/improved_representation_3.png"> | <img src="img/improved_representation_4.png"> |
+| <img src="img/improved_representation_5.png"> | <img src="img/usage_table.png"> |
 
 # Requirements
 ```pip3 install bs4 pyvis```
