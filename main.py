@@ -130,4 +130,31 @@ if __name__ == "__main__":
 						 x*X_DISTANCE-columns*X_DISTANCE/2, 
 						 y*Y_DISTANCE)
 
+	# usage table construction
+	usage_table, nodes_info = '''
+	<html><head><title>connectivity table</title></head>
+	<body><table><tr><th>item</th><th>total</th><th>used in</th><tr>''', []
+	for node in net.node_ids:
+		if node not in science_packs:
+			img = net.node_map[node]['image']
+			connections = len(net.neighbors(node))
+			usage = sorted(net.neighbors(node), 
+						   key=lambda n: len(net.neighbors(n)), 
+						   reverse=True)
+			usage = map(lambda n: net.node_map[n]['image'], usage)
+			nodes_info.append((img, connections, usage))
+	for img, connections, usage in sorted(nodes_info, 
+										  key=lambda n: n[1], 
+										  reverse=True):
+		usage_table+=f'''
+			<tr>
+			<td><img src="{img}"></td>
+			<td><center>{connections}</center></td>
+			<td>{''.join(f'<img src="{png}">' for png in usage)}</td>
+			</tr>
+			'''
+	with open('usage_table.html', 'w') as f:
+		usage_table+='</table></body></html>'
+		f.write(usage_table)
+
 	net.show('recipe_tree.html')
